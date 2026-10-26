@@ -28,13 +28,13 @@
  */
 static uint64_t parse_unumber(const char* s, uint64_t min, uint64_t max, const char** errmsg) {
   // 128 bytes are more than enough for any valid integer. If the source string
-  // is longer, truncating it is harmless because strtoll() will report ERANGE.
+  // is longer, truncating it is harmless because strtoull() will report ERANGE.
   char buf[128];
   size_t i = 0;
   uint64_t val;
   int base = 10;
   int is_negative = 0;
-  char* end = "";
+  char* end = NULL;
   errno = 0;
 
   // We accept exactly one sign
@@ -105,7 +105,7 @@ parse:
 check:
   if (errno)
     *errmsg = strerror(errno);
-  else if (*end)
+  else if (end && *end)
     *errmsg = strerror(EINVAL);
   else if (is_negative && val)
     *errmsg = "value is negative";

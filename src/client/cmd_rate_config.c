@@ -25,20 +25,20 @@
 
 const struct cli99_Option RateConfig_CommandLine[] = {
   cli99_Options_Include(&Main_CommandLine),
-  {"-d|--dsdt",        Option_RateConfig_DSDT_File,   cli99_RequiredArgument},
-  {"-D|--dsdt-dir",    Option_RateConfig_DSDT_Dir,    cli99_RequiredArgument},
+  {"-d|--dsdt",        Option_RateConfig_DsdtFile,    cli99_RequiredArgument},
+  {"-D|--dsdt-dir",    Option_RateConfig_DsdtDir,     cli99_RequiredArgument},
   {"-a|--all",         Option_RateConfig_All,         cli99_NoArgument      },
-  {"-H|--full-help",   Option_RateConfig_Full_Help,   cli99_NoArgument      },
+  {"-H|--full-help",   Option_RateConfig_FullHelp,    cli99_NoArgument      },
   {"-j|--json",        Option_RateConfig_Json,        cli99_NoArgument      },
-  {"-m|--min-score",   Option_RateConfig_Min_Score,   cli99_RequiredArgument},
-  {"-n|--no-download", Option_RateConfig_No_Download, cli99_NoArgument      },
+  {"-m|--min-score",   Option_RateConfig_MinScore,    cli99_RequiredArgument},
+  {"-n|--no-download", Option_RateConfig_NoDownload,  cli99_NoArgument      },
   {"-r|--rules",       Option_RateConfig_Rules,       cli99_RequiredArgument},
   {"-i|--input",       Option_RateConfig_Input,       cli99_RequiredArgument},
   {"-u|--unverified",  Option_RateConfig_Unverified,  cli99_NoArgument      },
   {"-b|--bad",         Option_RateConfig_Bad,         cli99_NoArgument      },
   {"-q|--quiet",       Option_RateConfig_Quiet,       cli99_NoArgument      },
   {"-f|--fan-count",   Option_RateConfig_FanCount,    cli99_RequiredArgument},
-  {"--print-rules",    Option_RateConfig_Print_Rules, cli99_NoArgument      },
+  {"--print-rules",    Option_RateConfig_PrintRules,  cli99_NoArgument      },
   {"file",             Option_RateConfig_File,        cli99_NormalPositional},
   cli99_Options_End()
 };

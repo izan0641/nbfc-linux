@@ -4,7 +4,6 @@
 #include <string.h> // strerror, strcmp, strncmp, strcspn
 #include <errno.h>  // errno, ENODATA
 
-#include "nbfc.h"
 #include "memory.h"
 #include "file_utils.h"
 #include "str_functions.h"

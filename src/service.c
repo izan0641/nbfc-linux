@@ -19,7 +19,6 @@
 #include "model_config.h"
 #include "register_write_configuration_utils.h"
 
-#include <stdio.h>  // snprintf
 #include <math.h>   // fabs
 #include <linux/limits.h> // PATH_MAX
 
@@ -133,7 +132,7 @@ Error Service_Init(void) {
   // Embedded controller ======================================================
   if (options.embedded_controller_type != EmbeddedControllerType_Unset) {
     // --embedded-controller given
-    ec = EC_By_EmbeddedControllerType(options.embedded_controller_type);;
+    ec = EC_By_EmbeddedControllerType(options.embedded_controller_type);
   }
   else if (Service_ServiceConfig.isset.EmbeddedControllerType) {
     ec = EC_By_EmbeddedControllerType(Service_ServiceConfig.EmbeddedControllerType);

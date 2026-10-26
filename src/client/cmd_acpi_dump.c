@@ -4,6 +4,7 @@
 #include "../file_utils.h"
 #include "../acpi_analysis.h"
 #include "../nxjson_write.h"
+#include "../nxjson_utils.h"
 #include "../process.h"
 
 #include "check_root.h"
@@ -16,8 +17,8 @@
 const struct cli99_Option AcpiDump_CommandLine[] = {
   cli99_Options_Include(&Main_CommandLine),
   {"command",         Option_AcpiDump_Command,    cli99_NormalPositional},
-  {"-d|--dsdt",       Option_AcpiDump_DSDT_File,  cli99_RequiredArgument},
-  {"-D|--dsdt-dir",   Option_AcpiDump_DSDT_Dir,   cli99_RequiredArgument},
+  {"-d|--dsdt",       Option_AcpiDump_DsdtFile,   cli99_RequiredArgument},
+  {"-D|--dsdt-dir",   Option_AcpiDump_DsdtDir,    cli99_RequiredArgument},
   cli99_Options_End()
 };
 
@@ -436,7 +437,7 @@ int AcpiDump(void) {
   switch (AcpiDump_Options.action) {
     case AcpiDump_Action_DSL:         return AcpiDump_DSL(aml_files);
     case AcpiDump_Action_Methods:     return AcpiDump_Methods(aml_files, json);
-    case AcpiDump_Action_Registers:   return AcpiDump_Registers(aml_files, json, false, unverified);
+    case AcpiDump_Action_Registers:   return AcpiDump_Registers(aml_files, json, false, false);
     case AcpiDump_Action_ECRegisters: return AcpiDump_Registers(aml_files, json, true, unverified);
     case AcpiDump_Action_Map:         return AcpiDump_Map(aml_files, unverified);
     case AcpiDump_Action_Env:         return AcpiDump_Env(aml_files, unverified, AcpiDump_Options.prefix);

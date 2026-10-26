@@ -252,8 +252,11 @@ Error Lua_LoadCode(const char* code, int* function_ref) {
   if (e)
     return e;
 
-  if (luaL_loadstring(Lua_State, code) != LUA_OK)
-    return err_string(lua_tostring(Lua_State, -1));
+  if (luaL_loadstring(Lua_State, code) != LUA_OK) {
+    e = err_string(lua_tostring(Lua_State, -1));
+    lua_pop(Lua_State, 1);
+    return e;
+  }
 
   *function_ref = luaL_ref(Lua_State, LUA_REGISTRYINDEX);
   return err_success();
@@ -275,7 +278,8 @@ Error Lua_Call(int function_ref, uint64_t value, uint64_t* result) {
 
   // call
   if (lua_pcall(Lua_State, 0, LUA_MULTRET, 0) != LUA_OK) {
-    e = err_string(lua_tostring(Lua_State, -1));
+    const char* err = lua_tostring(Lua_State, -1);
+    e = err_string(err ? err : "Unknown Lua error");
     lua_pop(Lua_State, 1);
     return e;
   }

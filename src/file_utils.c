@@ -32,7 +32,7 @@ FileResult File_Read(char* buf, size_t size, const char* file) {
     return result;
   }
 
-  while (result.len + 1 < size) {
+  while (result.len < size - 1) {
     ssize_t nread = read(fd, buf + result.len, size - result.len - 1);
 
     if (nread < 0) {
@@ -50,13 +50,25 @@ FileResult File_Read(char* buf, size_t size, const char* file) {
     result.len += (size_t) nread;
   }
 
-  if (result.len + 1 >= size) {
-    errno = EFBIG;
-    result.ok = false;
+  if (result.ok && result.len == size - 1) {
+    char extra;
+    ssize_t nread;
+
+    do {
+      nread = read(fd, &extra, 1);
+    } while (nread < 0 && errno == EINTR);
+
+    if (nread > 0) {
+      errno = EFBIG;
+      result.ok = false;
+    }
+    else if (nread < 0) {
+      result.ok = false;
+    }
   }
-  else {
+
+  if (result.ok)
     buf[result.len] = '\0';
-  }
 
   int old_errno = errno;
   close(fd);

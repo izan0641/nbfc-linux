@@ -3,7 +3,7 @@
 #include <errno.h>  // errno, ENOENT
 #include <stdio.h>  // snprintf
 #include <stdlib.h> // exit, system, WEXITSTATUS
-#include <string.h> // strcat, strerror, strcspn, memset
+#include <string.h> // strerror, strcspn, memset
 #include <signal.h> // kill, SIGINT
 #include <unistd.h> // unlink
 #include <limits.h> // INT_MAX

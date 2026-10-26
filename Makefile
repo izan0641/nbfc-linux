@@ -335,6 +335,7 @@ src/nbfc: \
 	src/client/cmd_config.c \
 	src/client/cmd_misc.c \
 	src/client/cmd_rate_config.c \
+	src/client/cmd_reset_ec.c \
 	src/client/cmd_sensors.c \
 	src/client/cmd_set.c \
 	src/client/cmd_show_variable.c \

@@ -158,8 +158,8 @@ parent_fail:
   while (waitpid(pid, &status, 0) < 0 && errno == EINTR) {}
 
 cleanup:
-  free(stdout_data);
-  free(stderr_data);
+  Mem_Free(stdout_data);
+  Mem_Free(stderr_data);
   return result;
 
 fail:

@@ -4,11 +4,12 @@
 
 const EC_VTable* EC_Cache_Controller;
 
-static uint8_t EC_Cache_Cache[256];
-static bool    EC_Cache_IsSet[256] = {0};
+#define EC_CACHE_REGISTERS_SIZE 256
+static uint8_t EC_Cache_Cache[EC_CACHE_REGISTERS_SIZE];
+static bool    EC_Cache_IsSet[EC_CACHE_REGISTERS_SIZE] = {0};
 
 void EC_Cache_Clear(void) {
-  memset(EC_Cache_IsSet, 0, 256);
+  memset(EC_Cache_IsSet, 0, EC_CACHE_REGISTERS_SIZE);
 }
 
 Error EC_Cache_Open(void) {

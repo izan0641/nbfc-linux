@@ -1,5 +1,5 @@
 #include <errno.h>  // errno
-#include <stdio.h>  // printf, snprintf
+#include <stdio.h>  // printf
 #include <string.h> // strcmp, strerror
 #include <stdbool.h>
 
@@ -7,15 +7,19 @@
 #include "../nbfc.h"
 #include "../error.h"
 #include "../macros.h"
+#include "../memory.h"
 #include "../log.h"
-#include "../sleep.h"
-#include "../file_utils.h"
 #include "../fs_sensors.h"
 
 #include "service_control.h"
 
 static int WaitForHwmon(void) {
   Error e = FS_Sensors_Init(false);
+
+#if STRICT_CLEANUP
+  FS_Sensors_Cleanup();
+#endif
+
   return e ? NBFC_EXIT_FAILURE : NBFC_EXIT_SUCCESS;
 }
 

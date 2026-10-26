@@ -3,7 +3,7 @@
 
 static const struct cli99_Option Lua_CommandLine[] = {
   cli99_Options_Include(&Main_CommandLine),
-  {"file", Option_File, cli99_RequiredArgument},
+  {"file", Option_File, cli99_NormalPositional},
   cli99_Options_End()
 };
 

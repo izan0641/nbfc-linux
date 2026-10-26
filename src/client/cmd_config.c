@@ -9,6 +9,8 @@
 #include "../nbfc.h"
 #include "../log.h"
 #include "../macros.h"
+#include "../memory.h"
+#include "../str_functions.h"
 #include "../service_config.h"
 #include "../help/client.help.h"
 

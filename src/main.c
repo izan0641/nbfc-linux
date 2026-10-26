@@ -46,7 +46,7 @@ static const struct option cli_options[] = {
   {0,                     0,                 0,     0 },
 };
 
-static const char cli_options_str[] = "hve:rfdc:";
+static const char cli_options_str[] = "he:rfdc:";
 
 static void parse_opts(int argc, char* const argv[]) {
   int o;

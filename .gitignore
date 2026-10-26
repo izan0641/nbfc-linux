@@ -48,6 +48,8 @@ src/test/test_model_config
 src/test/test_config_validation
 src/test/test_parse_numbers
 src/test/test_range
+src/test/test_file_utils
+src/test/test_file_utils.data
 src/test/DSDT.aml
 src/test/fingerprint_current_firmware
 

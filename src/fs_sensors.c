@@ -257,7 +257,7 @@ Error FS_TemperatureSources_GetTemperature(
   float tmp;
   float sum = 0;
   float min = FLT_MAX;
-  float max = FLT_MIN;
+  float max = -FLT_MAX;
   int   total = 0;
 
   for_each_array(array_size_t*, ts_idx, *sources) {

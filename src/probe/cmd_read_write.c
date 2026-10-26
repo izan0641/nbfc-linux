@@ -76,6 +76,11 @@ static int Read(void) {
   char buf[128];
 
   if (options.use_word) {
+    if (options.register_ > 254) {
+      Log_Error("Register > 254");
+      return NBFC_EXIT_FAILURE;
+    }
+
     uint16_t word;
     Error e = ec->ReadWord(options.register_, &word);
     e_die();
@@ -96,6 +101,11 @@ static int Write(void) {
   Initialize_EC();
 
   if (options.use_word) {
+    if (options.register_ > 254) {
+      Log_Error("Register > 254");
+      return NBFC_EXIT_FAILURE;
+    }
+
     Error e = ec->WriteWord(options.register_, options.value);
     e_die();
   }

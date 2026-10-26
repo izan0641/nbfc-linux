@@ -9,6 +9,12 @@
 static nx_json NXJSON_OBJECTS[NXJSON_MEMORY_NUM_OBJECTS] = {0};
 static bool    NXJSON_OBJECTS_USED[NXJSON_MEMORY_NUM_OBJECTS] = {0};
 
+/**
+ * Allocate memory for an nx_json object.
+ *
+ * The size arguments are ignored; this function always allocates and returns
+ * a complete nx_json object.
+ */
 void* NXJSON_Memory_Calloc(size_t nmemb, size_t size) {
   for (int i = 0; i < NXJSON_MEMORY_NUM_OBJECTS; ++i) {
     if (! NXJSON_OBJECTS_USED[i]) {

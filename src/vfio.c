@@ -1,6 +1,7 @@
 #include "vfio.h"
 
 #include "log.h"
+#include "buffer.h"
 #include "file_utils.h"
 #include "str_functions.h"
 
@@ -15,15 +16,19 @@
 // ============================================================================
 
 #define VFIO_PCI_DEVICES_PATH "/sys/bus/pci/devices"
+#define VFIO_PROC_CMDLINE_MAX 32768
 
 // Check /proc/cmdline for vfio-pci.ids or vfio_pci.ids (fast path).
 bool VFIO_CheckProcCmdline(void) {
-  char cmdline[4096];
-  FileResult res = File_Read(cmdline, sizeof(cmdline), "/proc/cmdline");
-  if (!res.ok)
-    return false;
+  bool ret = false;
+  char* cmdline = Buffer_Get(VFIO_PROC_CMDLINE_MAX);
 
-  return strstr(cmdline, "vfio-pci.ids") || strstr(cmdline, "vfio_pci.ids");
+  FileResult res = File_Read(cmdline, VFIO_PROC_CMDLINE_MAX, "/proc/cmdline");
+  if (res.ok)
+    ret = strstr(cmdline, "vfio-pci.ids") || strstr(cmdline, "vfio_pci.ids");
+
+  Buffer_Release(cmdline, VFIO_PROC_CMDLINE_MAX);
+  return ret;
 }
 
 // Scan /sys/bus/pci/devices/ for NVIDIA GPUs bound to vfio-pci or pci-stub.

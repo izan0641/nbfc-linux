@@ -11,6 +11,8 @@
 #include "client_global.h"
 #include "service_control.h"
 
+extern const EC_VTable* ec;
+
 static void ResetEc_ResetFans(ModelConfig* model_config) {
   Error e;
 
@@ -65,12 +67,13 @@ int ResetEc(void) {
   // ==========================================================================
   // Open ACPI Call
   // ==========================================================================
-  AcpiCall_Open();
+  AcpiCall_Open(); // We don't care if this fails...
 
   // ==========================================================================
   // Do the reset
   // ==========================================================================
   for (int i = 0; i < 10; ++i) {
+    // We try 10 times - without checking for errors...
     RegisterWriteConfigurations_Reset(&model_config.RegisterWriteConfigurations);
     ResetEc_ResetFans(&model_config);
   }

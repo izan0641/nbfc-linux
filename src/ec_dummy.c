@@ -4,11 +4,11 @@
 
 #include "ec_dummy.h"
 
-#include <endian.h> // htole16
-
 #include "memory.h"
 
-#define         EC_DUMMY_FAKE_REGISTERS_SIZE 256
+#include <endian.h> // htole16
+
+#define EC_DUMMY_FAKE_REGISTERS_SIZE 256
 static uint8_t* EC_Dummy_FakeRegisters = NULL;
 
 Error EC_Dummy_Open(void) {
@@ -37,8 +37,10 @@ Error EC_Dummy_ReadWord(uint8_t register_, uint16_t* out) {
     const uint16_t lsb = EC_Dummy_FakeRegisters[register_];
     const uint16_t msb = EC_Dummy_FakeRegisters[register_ + 1];
     *out = (uint16_t) ((msb << 8) | lsb);
+    return err_success();
   }
-  return err_success();
+
+  return err_string("Register > 254");
 }
 
 Error EC_Dummy_WriteWord(uint8_t register_, uint16_t value) {
@@ -50,8 +52,10 @@ Error EC_Dummy_WriteWord(uint8_t register_, uint16_t value) {
   if (register_ + 1 < EC_DUMMY_FAKE_REGISTERS_SIZE) {
     EC_Dummy_FakeRegisters[register_] = lsb;
     EC_Dummy_FakeRegisters[register_ + 1] = msb;
+    return err_success();
   }
-  return err_success();
+
+  return err_string("Register > 254");
 }
 
 const EC_VTable EC_Dummy_VTable = {

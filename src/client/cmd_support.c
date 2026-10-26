@@ -169,6 +169,7 @@ static char* Support_DoUpload(const char* model, array_of(str)* files) {
 end:
 #if STRICT_CLEANUP
   Mem_Free(endpoint_url);
+  curl_mime_free(mime);
   CurlWithMem_Destroy(curl);
 #endif
   return response;

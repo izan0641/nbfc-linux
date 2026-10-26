@@ -161,6 +161,9 @@ static const struct cli99_Option* Options[] = {
 // ============================================================================
 
 int main(int argc, char* const argv[]) {
+  Program_Name_Set(argv[0]);
+  setlocale(LC_NUMERIC, "C"); // for json floats
+
   if (geteuid() == 0) {
     if (mkdir_p(NBFC_CONFIG_DIR, 0755) < 0) {
       Log_Error("Cannot create directory: %s: %s", NBFC_CONFIG_DIR, strerror(errno));
@@ -177,9 +180,6 @@ int main(int argc, char* const argv[]) {
     printf(CLIENT_HELP_HELP_TEXT);
     return NBFC_EXIT_CMDLINE;
   }
-
-  Program_Name_Set(argv[0]);
-  setlocale(LC_NUMERIC, "C"); // for json floats
 
   int64_t o;
   const char* err;
@@ -447,21 +447,21 @@ int main(int argc, char* const argv[]) {
       RateConfig_Options.input_file = p.optarg;
       break;
 
-    case Option_RateConfig_Full_Help:
+    case Option_RateConfig_FullHelp:
       RateConfig_SetAction(RateConfig_Action_PrintFullHelp, p.option->optstring);
       break;
 
-    case Option_RateConfig_Print_Rules:
+    case Option_RateConfig_PrintRules:
       RateConfig_SetAction(RateConfig_Action_PrintRules, p.option->optstring);
       break;
 
-    case Option_RateConfig_DSDT_File:
+    case Option_RateConfig_DsdtFile:
       array_realloc(str, RateConfig_Options.dsdt_files, (RateConfig_Options.dsdt_files.size + 1));
       RateConfig_Options.dsdt_files.data[RateConfig_Options.dsdt_files.size] = Mem_Strdup(p.optarg);
       RateConfig_Options.dsdt_files.size++;
       break;
 
-   case Option_RateConfig_DSDT_Dir:
+   case Option_RateConfig_DsdtDir:
       RateConfig_Options.dsdt_dir = p.optarg;
       break;
 
@@ -469,7 +469,7 @@ int main(int argc, char* const argv[]) {
       RateConfig_Options.rules_file = p.optarg;
       break;
 
-   case Option_RateConfig_No_Download:
+   case Option_RateConfig_NoDownload:
       RateConfig_Options.no_download = true;
       break;
 
@@ -481,7 +481,7 @@ int main(int argc, char* const argv[]) {
       RateConfig_Options.unverified = true;
       break;
 
-    case Option_RateConfig_Min_Score:
+    case Option_RateConfig_MinScore:
       RateConfig_Options.min_score_set = true;
       RateConfig_Options.min_score = (float) parse_double(p.optarg, 0, 10, &err);
       if (err) {
@@ -574,13 +574,13 @@ int main(int argc, char* const argv[]) {
     // Acpi-Dump options
     // ========================================================================
 
-    case Option_AcpiDump_DSDT_File:
+    case Option_AcpiDump_DsdtFile:
       array_realloc(str, AcpiDump_Options.files, (AcpiDump_Options.files.size + 1));
       AcpiDump_Options.files.data[AcpiDump_Options.files.size] = Mem_Strdup(p.optarg);
       AcpiDump_Options.files.size++;
       break;
 
-    case Option_AcpiDump_DSDT_Dir:
+    case Option_AcpiDump_DsdtDir:
       AcpiDump_Options.dir = p.optarg;
       break;
 

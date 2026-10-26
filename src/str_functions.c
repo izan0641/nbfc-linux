@@ -36,8 +36,8 @@ char* str_replace_prefix(const char* s, const char* search, const char* replace)
 
 int str_cmp_ignorecase(const char* a, const char* b) {
   while (*a && *b) {
-    const int ca = tolower(*a);
-    const int cb = tolower(*b);
+    const int ca = tolower((unsigned char) *a);
+    const int cb = tolower((unsigned char) *b);
 
     if (ca != cb)
       return ca - cb;

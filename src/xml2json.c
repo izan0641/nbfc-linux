@@ -7,6 +7,7 @@
 
 #include <float.h>  // FLT_MAX
 #include <string.h> // strcmp
+#include <stdbool.h>
 
 /**
  * Read a string from an XML node and store it in the parent's JSON child.

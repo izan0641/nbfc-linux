@@ -4,13 +4,13 @@
  "NoteBook FanControl service\n"                                               \
  "\n"                                                                          \
  "Optional arguments:\n"                                                       \
- "  -h, --help            Show this help message and exit\n"                   \
- "  --version             Show program's version number and exit\n"            \
- "  -r, --read-only       Start in read-only mode\n"                           \
- "  -f, --fork            Switch process to background after successfully started\n"\
- "  -d, --debug           Enable tracing of reads and writes of the embedded controller\n"\
+ "  -h, --help       Show this help message and exit\n"                        \
+ "  --version        Show program's version number and exit\n"                 \
+ "  -r, --read-only  Start in read-only mode\n"                                \
+ "  -f, --fork       Switch process to background after successfully started\n"\
+ "  -d, --debug      Trace reads and writes of the embedded controller\n"      \
  "  -c CONFIG, --config-file CONFIG\n"                                         \
- "                        Use alternative config file (default " SYSCONFDIR "/nbfc/nbfc.json)\n"\
+ "                   Use alternative config file (default " SYSCONFDIR "/nbfc/nbfc.json)\n"\
  "  -e EC, --embedded-controller EC\n"                                         \
- "                        Specify embedded controller to use\n"                \
+ "                   Specify embedded controller to use\n"                    \
  ""

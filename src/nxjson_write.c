@@ -6,7 +6,7 @@
 #include <errno.h>  // errno
 #include <stdio.h>  // snprintf
 #include <string.h> // strlen
-#include <unistd.h> // write
+#include <inttypes.h> // PRIi64
 
 typedef enum NBFC_PACKED_ENUM {
   NxJson_WriteModeSend,
@@ -149,13 +149,13 @@ static void NxJson_WriteIndention(NxJson_Writer* obj, int indent) {
 static void NxJson_WriteKeyNotNull(NxJson_Writer* obj, const nx_json* json) {
   if (json->key != NULL) {
     NxJson_WriteRaw(obj, "\"");
-    NxJson_WriteRaw(obj, json->key);
+    NxJson_WriteStringEscaped(obj, json->key);
     NxJson_WriteRaw(obj, "\": ");
   }
 }
 
-void NxJson_WriteJsonObject(NxJson_Writer* obj, const nx_json* json, int indent) {
-  static char buf[32];
+static void NxJson_WriteJsonObject(NxJson_Writer* obj, const nx_json* json, int indent) {
+  static char buf[128];
 
   while (obj->success && json != NULL) {
     switch (json->type) {
@@ -190,7 +190,7 @@ void NxJson_WriteJsonObject(NxJson_Writer* obj, const nx_json* json, int indent)
     case NX_JSON_INTEGER:
       NxJson_WriteIndention(obj, indent);
       NxJson_WriteKeyNotNull(obj, json);
-      snprintf(buf, sizeof(buf), "%ld", json->val.i);
+      snprintf(buf, sizeof(buf), "%" PRIi64, json->val.i);
       NxJson_WriteRaw(obj, buf);
       break;
     case NX_JSON_DOUBLE:

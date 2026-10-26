@@ -176,7 +176,7 @@ void AcpiInfo_Free(AcpiInfo* acpi_info) {
 }
 
 /*
- * Extracts a list or registers.
+ * Extracts a list of registers.
  *
  * Parses output from `acpiexec -b 'Objects RegionField'`.
  */
@@ -639,7 +639,7 @@ bool AcpiAnalysis_PathEquals(const char* s1, const char* s2) {
  *
  * Example:
  *   Input:  \_SB.PC00.LPCB.EC0.ERBD
- *   Output: ERDB
+ *   Output: ERBD
  */
 const char* AcpiAnalysis_RegisterBasename(const char* path) {
   const size_t len = strlen(path);

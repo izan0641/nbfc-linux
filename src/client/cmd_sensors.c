@@ -247,7 +247,7 @@ static int Sensors_Show(void) {
   // ==========================================================================
 
   for_enumerate_array(array_size_t, i, model_config.FanConfigurations) {
-    printf("#%zd (%s):\n", i, fans[i].FanName);
+    printf("#%zu (%s):\n", i, fans[i].FanName);
     printf("  Sensors:  ");
     for_each_array(str*, sensor, fans[i].Sensors)
       printf(" %s", *sensor);

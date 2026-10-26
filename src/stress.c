@@ -1,9 +1,6 @@
 #include "stress.h"
 
 #include "log.h"
-#include "nbfc.h"
-#include "macros.h"
-#include "file_utils.h"
 
 #include <errno.h>
 #include <stdio.h>
@@ -13,8 +10,6 @@
 #include <sys/prctl.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-
-#define STRESS_PROC_CPUINFO "/proc/cpuinfo"
 
 typedef enum {
   Stress_Type_CPU,

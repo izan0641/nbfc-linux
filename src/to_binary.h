@@ -12,10 +12,11 @@ static inline const char* to_binary(uint64_t val, unsigned pad)
   memset(buf, '0', 64);
   buf[64] = '\0';
 
-  while (val) {
+  do {
     buf[i--] = '0' + (val & 1);
     val >>= 1;
   }
+  while (val);
 
   unsigned first = i + 1;
   if (first > 64 - pad)

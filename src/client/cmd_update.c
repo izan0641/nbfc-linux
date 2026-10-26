@@ -374,11 +374,26 @@ end:
 // Update compatibility database (model_config.json)
 static int UpdateModelCompatibilityDatabase(void) {
   int ret = 0;
+  long http_code;
   CURL* curl = CurlWithMem_Create(UPDATE_API_MODEL_SUPPORT_URL, NBFC_MODEL_SUPPORT_FILE_MUTABLE);
   CURLcode code = curl_easy_perform(curl);
 
   if (code != CURLE_OK) {
     Log_Download_Failed(UPDATE_API_MODEL_SUPPORT_URL, code);
+    ret = -1;
+    goto end;
+  }
+
+  code = curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
+  if (code != CURLE_OK) {
+    Log_Error("curl_easy_getinfo() failed");
+    ret = -1;
+    goto end;
+  }
+
+  if (http_code != 200) {
+    Log_Error("Download failed: %s (server returned HTTP %ld)",
+      UPDATE_API_MODEL_SUPPORT_URL, http_code);
     ret = -1;
     goto end;
   }

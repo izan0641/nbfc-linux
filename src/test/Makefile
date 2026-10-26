@@ -1,6 +1,7 @@
 all: \
 	test_parse_numbers \
 	test_range \
+	test_file_utils \
 	test_config_validation \
 	test_model_config \
 	test_acpi_call \
@@ -15,6 +16,10 @@ test_parse_numbers: test_parse_numbers.c
 test_range: test_range.c
 	$(CC) -O2 test_range.c -lm -o test_range
 	./test_range
+
+test_file_utils: test_file_utils.c
+	$(CC) -O2 test_file_utils.c -o test_file_utils
+	./test_file_utils
 
 test_config_validation: test_config_validation.c
 	$(CC) -O2 test_config_validation.c -llua -ldl -o test_config_validation
@@ -84,4 +89,5 @@ clean:
 	rm -f ./test_model_config
 	rm -f ./test_parse_numbers
 	rm -f ./test_range
+	rm -f ./test_file_utils
 	rm -f ./fingerprint_current_firmware

@@ -5,7 +5,7 @@
 #include "log.h"    // WriteToErr
 
 #include <stdlib.h> // malloc, calloc, realloc, free, exit
-#include <string.h> // strlen, memcpy, strerror
+#include <string.h> // strlen, memcpy
 #include <stdio.h>  // fprintf
 
 void Memory_FatalError(void) {

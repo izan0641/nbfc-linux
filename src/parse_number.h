@@ -30,7 +30,7 @@ static int64_t parse_number(const char* s, int64_t min, int64_t max, const char*
   size_t i = 0;
   int64_t val;
   int base = 10;
-  char* end = "";
+  char* end = NULL;
   errno = 0;
 
   // We accept exactly one sign
@@ -97,7 +97,7 @@ parse:
 check:
   if (errno)
     *errmsg = strerror(errno);
-  else if (*end)
+  else if (end && *end)
     *errmsg = strerror(EINVAL);
   else if (val < min)
     *errmsg = "value too small";

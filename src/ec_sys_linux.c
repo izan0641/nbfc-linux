@@ -13,7 +13,7 @@
 
 #define EC_SYS_LINUX_ACPI_EC_PATH      "/dev/ec"
 #define EC_SYS_LINUX_EC0_IO_PATH       "/sys/kernel/debug/ec/ec0/io"
-#define EC_SYS_LINUX_ACPI_MODPROBE_CMD "modprobe acpi_ec write_support=1"
+#define EC_SYS_LINUX_ACPI_MODPROBE_CMD "modprobe acpi_ec"
 #define EC_SYS_LINUX_MODPROBE_CMD      "modprobe ec_sys write_support=1"
 
 static int         EC_SysLinux_FD = -1;
@@ -72,6 +72,9 @@ Error EC_SysLinux_WriteByte(uint8_t register_, uint8_t value) {
 }
 
 Error EC_SysLinux_WriteWord(uint8_t register_, uint16_t value) {
+  if (register_ > 254)
+    return err_string("Register > 254");
+
   value = htole16(value);
   if (2 != pwrite(EC_SysLinux_FD, &value, 2, register_))
     return err_stdlib(EC_SysLinux_File);
@@ -87,6 +90,9 @@ Error EC_SysLinux_ReadByte(uint8_t register_, uint8_t* out) {
 }
 
 Error EC_SysLinux_ReadWord(uint8_t register_, uint16_t* out) {
+  if (register_ > 254)
+    return err_string("Register > 254");
+
   uint16_t value;
   if (2 != pread(EC_SysLinux_FD, &value, 2, register_))
     return err_stdlib(EC_SysLinux_File);

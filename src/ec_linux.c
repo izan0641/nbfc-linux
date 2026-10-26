@@ -186,6 +186,9 @@ Error EC_Linux_WriteByte(uint8_t register_, uint8_t val) {
 }
 
 Error EC_Linux_WriteWord(uint8_t register_, uint16_t val) {
+  if (register_ > 254)
+    return err_string("Register > 254");
+
   for (int i = EC_Linux_MaxRetries; i--;)
     if (EC_Linux_TryWriteWord(register_, val))
       return err_success();
@@ -200,6 +203,9 @@ Error EC_Linux_ReadByte(uint8_t register_, uint8_t* val) {
 }
 
 Error EC_Linux_ReadWord(uint8_t register_, uint16_t* val) {
+  if (register_ > 254)
+    return err_string("Register > 254");
+
   for (int i = EC_Linux_MaxRetries; i--;)
     if (EC_Linux_TryReadWord(register_, val))
       return err_success();

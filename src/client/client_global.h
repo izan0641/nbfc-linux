@@ -37,16 +37,16 @@ enum Option {
 
   // Rate-Config options
   Option_RateConfig_File,
-  Option_RateConfig_DSDT_File,
-  Option_RateConfig_DSDT_Dir,
+  Option_RateConfig_DsdtFile,
+  Option_RateConfig_DsdtDir,
   Option_RateConfig_All,
-  Option_RateConfig_Full_Help,
+  Option_RateConfig_FullHelp,
   Option_RateConfig_Json,
   Option_RateConfig_Input,
   Option_RateConfig_Rules,
-  Option_RateConfig_No_Download,
-  Option_RateConfig_Print_Rules,
-  Option_RateConfig_Min_Score,
+  Option_RateConfig_NoDownload,
+  Option_RateConfig_PrintRules,
+  Option_RateConfig_MinScore,
   Option_RateConfig_Unverified,
   Option_RateConfig_Bad,
   Option_RateConfig_Quiet,
@@ -64,8 +64,8 @@ enum Option {
 
   // Acpi-Dump options
   Option_AcpiDump_Command,
-  Option_AcpiDump_DSDT_File,
-  Option_AcpiDump_DSDT_Dir,
+  Option_AcpiDump_DsdtFile,
+  Option_AcpiDump_DsdtDir,
   Option_AcpiDump_Json,
   Option_AcpiDump_Unverified,
   Option_AcpiDump_Prefix,

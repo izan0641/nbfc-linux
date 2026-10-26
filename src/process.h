@@ -3,7 +3,8 @@
 
 #include "error.h"
 
-#include <stdlib.h> // system
+#include <stdlib.h>   // system
+#include <sys/wait.h> // WEXITSTATUS
 #include <stdbool.h>
 
 static inline Error Process_Call(const char* cmd) {

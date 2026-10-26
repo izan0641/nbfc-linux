@@ -11,7 +11,7 @@
 #include <string.h> // memset
 #include <unistd.h> // close
 #include <fcntl.h>  // open, O_WRONLY, O_CREAT, O_TRUNC
-#include <sys/stat.h> // open, S_IRUSR, S_IWUSR, S_IROTH, ...
+#include <sys/stat.h> // S_IRUSR, S_IWUSR, S_IROTH, ...
 
 Error ServiceState_FromFile(ServiceState* service_state, const char* file) {
   Error e;

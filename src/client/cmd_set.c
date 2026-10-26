@@ -7,6 +7,8 @@
 #include "../nxjson_utils.h"
 #include "../memory.h"
 #include "../nbfc.h"
+#include "../error.h"
+#include "../log.h"
 
 const struct cli99_Option Set_CommandLine[] = {
   cli99_Options_Include(&Main_CommandLine),
@@ -65,8 +67,8 @@ int Set(void) {
       goto error;
     }
 
-    Log_Error("Service returned: %s", err->val.text);
-    return NBFC_EXIT_FAILURE;
+    e = err_stringf("Service returned: %s", err->val.text);
+    goto error;
   }
 
   const nx_json* status = nx_json_get(out, "Status");

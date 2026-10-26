@@ -13,7 +13,7 @@ void Trace_Push(Trace* trace, const char* fmt, ...) {
 
   if (trace->stack_size) {
     if (len + 3 > sizeof(trace->buf))
-      return;
+      goto end;
 
     trace->buf[len++] = ':';
     trace->buf[len++] = ' ';
@@ -25,6 +25,7 @@ void Trace_Push(Trace* trace, const char* fmt, ...) {
   vsnprintf(trace->buf + len, sizeof(trace->buf) - len, fmt, args);
   va_end(args);
 
+end:
   trace->stack_size++;
 }
 

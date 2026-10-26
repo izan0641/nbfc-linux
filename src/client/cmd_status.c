@@ -1,6 +1,7 @@
 #include "../nbfc.h"
 #include "../sleep.h"
 #include "../memory.h"
+#include "../nxjson_write.h"
 #include "../str_functions.h"
 
 #include "service_control.h"

@@ -2,7 +2,7 @@
 
 #include "memory.h"
 
-#include <sys/mman.h>
+#include <sys/mman.h> // mmap, munmap
 
 /*
  * Why mmap() is used instead of stack or static allocations:
@@ -27,6 +27,9 @@
  */
 
 char* Buffer_Get(size_t size) {
+  if (size == 0)
+    return NULL;
+
   void* p = mmap(
     NULL,
     size,
@@ -43,5 +46,8 @@ char* Buffer_Get(size_t size) {
 }
 
 void Buffer_Release(char* buffer, size_t size) {
+  if (buffer == NULL)
+    return;
+
   munmap(buffer, size);
 }

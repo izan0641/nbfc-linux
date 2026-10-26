@@ -1,9 +1,13 @@
+#include "../error.h"
 #include "../nbfc.h"
 #include "../xml2json.h"
 #include "../model_config_to_json.h"
 #include "../nxjson_write.h"
 
 #include "client_global.h"
+
+#include <errno.h>  // errno
+#include <string.h> // strerror
 
 const struct cli99_Option Xml2Json_CommandLine[] = {
   cli99_Options_Include(&Main_CommandLine),
@@ -62,6 +66,10 @@ int Xml2Json(void) {
   // Convert ModelConfig back to JSON and print it
   nx_json root = {0};
   ModelConfig_ToJson(&model_config, &root, NULL);
-  nxjson_write_to_fd(root.val.children.first, STDOUT_FILENO, 2);
+  if (! nxjson_write_to_fd(root.val.children.first, STDOUT_FILENO, 2)) {
+    Log_Error("%s", strerror(errno));
+    return NBFC_EXIT_FAILURE;
+  }
+
   return NBFC_EXIT_SUCCESS;
 }

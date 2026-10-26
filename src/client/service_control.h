@@ -14,6 +14,7 @@ int   Service_Stop(void);
 int   Service_Restart(bool);
 
 Error Client_Communicate(const nx_json*, char**, const nx_json**);
+Error ServiceInfo_TryLoadJson(char**, const nx_json**);
 Error ServiceInfo_TryLoad(ServiceInfo*);
 void  ServiceInfo_Free(ServiceInfo*);
 void  ServiceConfig_Load(ServiceConfig*);

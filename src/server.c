@@ -12,9 +12,9 @@
 #include "protocol.h"
 #include "memory.h"
 
-#include <errno.h>      // errno, EWOULDBLOCK, EAGAIN, EFBIG, EINTR
+#include <errno.h>      // errno, ECONNREFUSED, EWOULDBLOCK, EAGAIN, EFBIG, EINTR
 #include <stdio.h>      // snprintf
-#include <string.h>     // strcmp, memset
+#include <string.h>     // strcmp, strerror, strstr, memset
 #include <unistd.h>     // read, close, unlink
 #include <sys/stat.h>   // chmod
 #include <sys/socket.h> // socket, bind, listen, accept
@@ -86,7 +86,7 @@ static Error Server_Command_Set_Fan(int socket, const nx_json* json) {
     }
   }
 
-  if (speed == -2)
+  if (speed == -2.0f)
     return err_string("Missing argument: Speed");
 
   for_enumerate_array(array_size_t, i, Service_Fans) {

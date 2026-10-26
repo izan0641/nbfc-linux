@@ -52,15 +52,21 @@ Nvidia_Error Nvidia_Init(void) {
   if (!Nvidia_nvmlDeviceGetTemperature_fn)
     return Nvidia_Error_DlOpen;
 
-  if (Nvidia_nvmlInit_fn() != NVML_SUCCESS)
+  if (Nvidia_nvmlInit_fn() != NVML_SUCCESS) {
+    Nvidia_Close();
     return Nvidia_Error_API;
+  }
 
-  if (Nvidia_nvmlDeviceGetHandleByIndex_fn(0, &Nvidia_Device) != NVML_SUCCESS)
+  if (Nvidia_nvmlDeviceGetHandleByIndex_fn(0, &Nvidia_Device) != NVML_SUCCESS) {
+    Nvidia_Close();
     return Nvidia_Error_API;
+  }
 
   unsigned int temp; // NOLINT
-  if (Nvidia_nvmlDeviceGetTemperature_fn(Nvidia_Device, NVML_TEMPERATURE_GPU, &temp) != NVML_SUCCESS)
+  if (Nvidia_nvmlDeviceGetTemperature_fn(Nvidia_Device, NVML_TEMPERATURE_GPU, &temp) != NVML_SUCCESS) {
+    Nvidia_Close();
     return Nvidia_Error_API;
+  }
 
   return Nvidia_Error_OK;
 }
@@ -74,10 +80,15 @@ void Nvidia_Close(void) {
 
   Nvidia_DlHandle = NULL;
   Nvidia_nvmlShutdown_fn = NULL;
+  Nvidia_nvmlDeviceGetHandleByIndex_fn = NULL;
+  Nvidia_nvmlDeviceGetTemperature_fn = NULL;
 }
 
 Error Nvidia_GetTemperature(float* out) {
   unsigned int temp; // NOLINT
+
+  if (Nvidia_nvmlDeviceGetTemperature_fn == NULL)
+    return err_string("nvidia-ml: Not initialized");
 
   if (Nvidia_nvmlDeviceGetTemperature_fn(Nvidia_Device, NVML_TEMPERATURE_GPU, &temp) == NVML_SUCCESS)
     *out = (float) temp;

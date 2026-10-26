@@ -18,7 +18,7 @@ bool IO_SendAll(int socket, const char* buffer, size_t length) {
 
     ssize_t ret = send(socket, buffer + total_sent, to_send, MSG_NOSIGNAL);
     if (ret < 0) {
-      if (errno != EINTR && errno != EAGAIN)
+      if (errno != EINTR && errno != EAGAIN && errno != EWOULDBLOCK)
         return false;
 
       continue;
@@ -43,7 +43,7 @@ bool IO_WriteAll(int fd, const char* buffer, size_t length)
     ssize_t ret = write(fd, buffer + total_written, to_write);
 
     if (ret < 0) {
-      if (errno != EINTR && errno != EAGAIN)
+      if (errno != EINTR && errno != EAGAIN && errno != EWOULDBLOCK)
         return false;
 
       continue;
